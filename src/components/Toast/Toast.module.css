@@ -1,0 +1,54 @@
+/* src/components/Toast/Toast.module.css */
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-16);
+  border-radius: var(--radius-sm);
+  min-width: 280px;
+  box-shadow: var(--shadow-md);
+}
+
+.success {
+  background-color: var(--color-state-success);
+  color: var(--color-label-inverse);
+}
+
+.error {
+  background-color: var(--color-state-error);
+  color: var(--color-label-inverse);
+}
+
+.warning {
+  background-color: var(--color-state-warning);
+  color: var(--color-label-primary);
+}
+
+.info {
+  background-color: var(--color-state-info);
+  color: var(--color-label-inverse);
+}
+
+.message {
+  font-family: var(--font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing);
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
