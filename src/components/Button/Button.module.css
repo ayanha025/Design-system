@@ -5,7 +5,7 @@
   letter-spacing: var(--letter-spacing);
   border: none;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   transition: background-color 0.15s ease, color 0.15s ease;
   display: inline-flex;
   align-items: center;
