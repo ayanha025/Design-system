@@ -1,5 +1,6 @@
 // src/components/ProgressBar/ProgressBar.tsx
 import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
 import styles from './ProgressBar.module.css'
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,7 +15,7 @@ export const ProgressBar = forwardRef<HTMLDivElement, ProgressBarProps>(function
   const clampedValue = Math.min(100, Math.max(0, value))
 
   return (
-    <div ref={ref} className={[styles.wrapper, className].filter(Boolean).join(' ')} {...rest}>
+    <div ref={ref} className={cx(styles.wrapper, className)} {...rest}>
       <div
         className={styles.track}
         role="progressbar"

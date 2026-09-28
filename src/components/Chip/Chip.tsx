@@ -2,6 +2,8 @@
 
 // src/components/Chip/Chip.tsx
 import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
+import { CloseIcon } from '../shared/CloseIcon'
 import styles from './Chip.module.css'
 
 export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -12,16 +14,9 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Chip = forwardRef<HTMLDivElement, ChipProps>(function Chip(
-  { variant = 'filled', selected = false, disabled = false, onClose, onClick, onKeyDown, className, style, children, ...rest },
+  { variant = 'filled', selected = false, disabled = false, onClose, onClick, onKeyDown, className, children, ...rest },
   ref,
 ) {
-  const classNames = [
-    styles.chip,
-    styles[variant],
-    selected ? styles.selected : '',
-    className,
-  ].filter(Boolean).join(' ')
-
   const clickable = Boolean(onClick)
 
   // 클릭 가능한 칩은 버튼처럼 Enter/Space로도 동작
@@ -41,10 +36,16 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>(function Chip(
       tabIndex={clickable && !disabled ? 0 : undefined}
       aria-pressed={clickable ? selected : undefined}
       onKeyDown={handleKeyDown}
-      className={classNames}
+      className={cx(
+        styles.chip,
+        styles[variant],
+        selected && styles.selected,
+        clickable && styles.clickable,
+        disabled && styles.disabled,
+        className,
+      )}
       onClick={disabled ? undefined : onClick}
       aria-disabled={disabled || undefined}
-      style={{ cursor: disabled ? 'not-allowed' : onClick ? 'pointer' : 'default', opacity: disabled ? 0.4 : 1, ...style }}
       {...rest}
     >
       <span className={styles.label}>{children}</span>
@@ -55,9 +56,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>(function Chip(
           aria-label="삭제"
           onClick={(e) => { e.stopPropagation(); onClose(); }}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M4 4L10 10M10 4L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <CloseIcon size={14} />
         </button>
       )}
     </div>

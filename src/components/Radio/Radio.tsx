@@ -1,5 +1,6 @@
 // src/components/Radio/Radio.tsx
 import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
 import styles from './Radio.module.css'
 
 export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -10,14 +11,8 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
   { checked = false, disabled = false, label, className, ...rest },
   ref,
 ) {
-  const wrapperClassName = [
-    styles.wrapper,
-    disabled ? styles.disabled : '',
-    className,
-  ].filter(Boolean).join(' ')
-
   return (
-    <label className={wrapperClassName}>
+    <label className={cx(styles.wrapper, disabled && styles.disabled, className)}>
       <input
         ref={ref}
         type="radio"
@@ -26,7 +21,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         className={styles.hiddenInput}
         {...rest}
       />
-      <div aria-hidden="true" className={`${styles.radio} ${checked ? styles.checked : ''}`}>
+      <div aria-hidden="true" className={cx(styles.radio, checked && styles.checked)}>
         {checked && <div className={styles.dot} />}
       </div>
       {label && <span className={styles.label}>{label}</span>}

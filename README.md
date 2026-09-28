@@ -170,7 +170,7 @@ src/
 ├── styles/
 │   └── tokens.css       # 자동 생성 (직접 수정 X)
 └── components/
-    ├── shared/          # 여러 컴포넌트가 쓰는 공통 훅 (useDialog)
+    ├── shared/          # 공통 도구: cx(className 조합), useControllableState, useDialog, CloseIcon
     └── Button/
         ├── Button.tsx
         ├── Button.module.css

@@ -4,6 +4,8 @@
 import { useId } from 'react'
 import { createPortal } from 'react-dom'
 import { useDialog, useIsMounted } from '../shared/useDialog'
+import { cx } from '../shared/cx'
+import { CloseIcon } from '../shared/CloseIcon'
 import styles from './Modal.module.css'
 
 export interface ModalProps {
@@ -28,7 +30,7 @@ export function Modal({ isOpen, title, onClose, children, footer, className, 'ar
     <div className={styles.overlay} onClick={onClose}>
       <div
         ref={panelRef}
-        className={[styles.modal, className].filter(Boolean).join(' ')}
+        className={cx(styles.modal, className)}
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
@@ -39,9 +41,7 @@ export function Modal({ isOpen, title, onClose, children, footer, className, 'ar
         <div className={styles.header}>
           {title && <h2 id={titleId} className={styles.title}>{title}</h2>}
           <button className={styles.closeButton} onClick={onClose} type="button" aria-label="닫기">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <CloseIcon size={20} />
           </button>
         </div>
         <div className={styles.body}>{children}</div>

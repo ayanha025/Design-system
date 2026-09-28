@@ -2,6 +2,8 @@
 
 // src/components/SelectField/SelectField.tsx
 import { forwardRef, useState, useRef, useEffect, useId } from 'react'
+import { cx } from '../shared/cx'
+import { useControllableState } from '../shared/useControllableState'
 import styles from './SelectField.module.css'
 
 export interface SelectOption {
@@ -41,9 +43,7 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(funct
 ) {
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
-  // value가 없으면 비제어 모드로 동작
-  const [internalValue, setInternalValue] = useState(defaultValue ?? '')
-  const selectedValue = value ?? internalValue
+  const [selectedValue, setSelectedValue] = useControllableState(value, defaultValue ?? '')
   const wrapperRef = useRef<HTMLDivElement>(null)
   const generatedId = useId()
   const triggerId = id ?? generatedId
@@ -78,7 +78,7 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(funct
   }
 
   const handleSelect = (optionValue: string) => {
-    if (value === undefined) setInternalValue(optionValue)
+    setSelectedValue(optionValue)
     onChange?.(optionValue)
     setIsOpen(false)
   }
@@ -126,19 +126,13 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(funct
     }
   }
 
-  const triggerClassName = [
-    styles.trigger,
-    isOpen ? styles.focused : '',
-    error ? styles.error : '',
-  ].filter(Boolean).join(' ')
-
   return (
-    <div className={[styles.wrapper, className].filter(Boolean).join(' ')} ref={wrapperRef}>
+    <div className={cx(styles.wrapper, className)} ref={wrapperRef}>
       {label && <label className={styles.label} id={labelId} htmlFor={triggerId}>{label}</label>}
       <button
         ref={ref}
         id={triggerId}
-        className={triggerClassName}
+        className={cx(styles.trigger, isOpen && styles.focused, error && styles.error)}
         onClick={() => (isOpen ? setIsOpen(false) : open())}
         onKeyDown={handleKeyDown}
         disabled={disabled}
@@ -160,7 +154,7 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(funct
           viewBox="0 0 16 16"
           fill="none"
           aria-hidden="true"
-          className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ''}`}
+          className={cx(styles.arrow, isOpen && styles.arrowOpen)}
         >
           <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -173,11 +167,11 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(funct
               id={optionId(index)}
               role="option"
               aria-selected={option.value === selectedValue}
-              className={[
+              className={cx(
                 styles.option,
-                option.value === selectedValue ? styles.optionSelected : '',
-                index === activeIndex ? styles.optionActive : '',
-              ].filter(Boolean).join(' ')}
+                option.value === selectedValue && styles.optionSelected,
+                index === activeIndex && styles.optionActive,
+              )}
               onMouseEnter={() => setActiveIndex(index)}
               // 클릭해도 트리거 버튼의 포커스가 유지되도록
               onMouseDown={(e) => e.preventDefault()}

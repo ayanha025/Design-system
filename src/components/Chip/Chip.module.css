@@ -6,6 +6,16 @@
   padding: var(--spacing-4) var(--spacing-12);
   border-radius: var(--radius-full);
   transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: default;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .label {

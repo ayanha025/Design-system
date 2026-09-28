@@ -1,5 +1,6 @@
 // src/components/Toast/Toast.tsx
 import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
 import styles from './Toast.module.css'
 import iconSuccess from './assets/icon-success.svg'
 import iconWarning from './assets/icon-warning.svg'
@@ -29,14 +30,8 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
   { type = 'success', message, description, icon = true, className, ...rest },
   ref,
 ) {
-  const classNames = [
-    styles.toast,
-    description ? styles.twoLines : styles.oneLine,
-    className,
-  ].filter(Boolean).join(' ')
-
   return (
-    <div ref={ref} className={classNames} role="status" {...rest}>
+    <div ref={ref} className={cx(styles.toast, description ? styles.twoLines : styles.oneLine, className)} role="status" {...rest}>
       <img className={styles.glow} src={assets[type].glow} width={212} height={212} alt="" />
       {icon && (
         <img className={styles.icon} src={assets[type].icon} width={24} height={24} alt="" />

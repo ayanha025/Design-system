@@ -1,7 +1,9 @@
 'use client'
 
 // src/components/Checkbox/Checkbox.tsx
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
+import { useControllableState } from '../shared/useControllableState'
 import styles from './Checkbox.module.css'
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -12,23 +14,15 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   { checked, defaultChecked = false, disabled = false, label, onChange, className, ...rest },
   ref,
 ) {
-  // checked가 없으면 비제어 모드로 동작
-  const [internalChecked, setInternalChecked] = useState(defaultChecked)
-  const isChecked = checked ?? internalChecked
+  const [isChecked, setIsChecked] = useControllableState(checked, defaultChecked)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (checked === undefined) setInternalChecked(e.target.checked)
+    setIsChecked(e.target.checked)
     onChange?.(e)
   }
 
-  const wrapperClassName = [
-    styles.wrapper,
-    disabled ? styles.disabled : '',
-    className,
-  ].filter(Boolean).join(' ')
-
   return (
-    <label className={wrapperClassName}>
+    <label className={cx(styles.wrapper, disabled && styles.disabled, className)}>
       <input
         ref={ref}
         type="checkbox"
@@ -38,7 +32,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         className={styles.hiddenInput}
         {...rest}
       />
-      <div aria-hidden="true" className={`${styles.checkbox} ${isChecked ? styles.checked : ''}`}>
+      <div aria-hidden="true" className={cx(styles.checkbox, isChecked && styles.checked)}>
         {isChecked && (
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path

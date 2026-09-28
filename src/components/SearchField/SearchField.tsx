@@ -1,7 +1,10 @@
 'use client'
 
 // src/components/SearchField/SearchField.tsx
-import { forwardRef, useRef, useState } from 'react'
+import { forwardRef, useRef } from 'react'
+import { cx } from '../shared/cx'
+import { CloseIcon } from '../shared/CloseIcon'
+import { useControllableState } from '../shared/useControllableState'
 import styles from './SearchField.module.css'
 
 export interface SearchFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -21,9 +24,10 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
   },
   ref,
 ) {
-  // value가 없으면 비제어 모드로 동작
-  const [internalValue, setInternalValue] = useState(String(defaultValue ?? ''))
-  const currentValue = value !== undefined ? String(value) : internalValue
+  const [currentValue, setCurrentValue] = useControllableState(
+    value === undefined ? undefined : String(value),
+    String(defaultValue ?? ''),
+  )
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const setRefs = (node: HTMLInputElement | null) => {
@@ -33,18 +37,18 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (value === undefined) setInternalValue(e.target.value)
+    setCurrentValue(e.target.value)
     onChange?.(e)
   }
 
   const handleClear = () => {
-    if (value === undefined) setInternalValue('')
+    setCurrentValue('')
     onClear?.()
     inputRef.current?.focus()
   }
 
   return (
-    <div className={[styles.wrapper, className].filter(Boolean).join(' ')}>
+    <div className={cx(styles.wrapper, className)}>
       <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
         <path d="M10.5 10.5L13.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -61,9 +65,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
       />
       {currentValue && !disabled && (
         <button className={styles.clearButton} onClick={handleClear} type="button" aria-label="검색어 지우기">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M4 4L10 10M10 4L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <CloseIcon size={14} />
         </button>
       )}
     </div>

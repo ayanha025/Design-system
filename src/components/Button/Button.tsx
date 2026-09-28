@@ -1,5 +1,6 @@
 // src/components/Button/Button.tsx
 import { forwardRef } from 'react'
+import { cx } from '../shared/cx'
 import styles from './Button.module.css'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,12 +12,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   { variant = 'primary', size = 'medium', type = 'button', className, ...rest },
   ref,
 ) {
-  const classNames = [
-    styles.button,
-    styles[variant],
-    styles[size],
-    className,
-  ].filter(Boolean).join(' ')
-
-  return <button ref={ref} type={type} className={classNames} {...rest} />
+  return (
+    <button
+      ref={ref}
+      type={type}
+      className={cx(styles.button, styles[variant], styles[size], className)}
+      {...rest}
+    />
+  )
 })
