@@ -54,7 +54,7 @@ Storybook → Chromatic 배포
 | **Radio** | `checked`, `label`, `name`, `value`, `disabled` |
 | **Chip** | `variant`: filled · outlined / `selected`, 삭제(`onClose`), `disabled` |
 | **ProgressBar** | `value`(0–100), `showLabel` |
-| **Toast** | `type`: success · warning · error / `message`, `description`(서브 텍스트), `icon` |
+| **Toast** | `type`: success · warning · error / `message`, `description`(서브 텍스트), `icon` — 화면에 띄울 때는 `toast.success()` 등 사용 (아래 참고) |
 | **Modal** | `isOpen`, `title`, `footer`, `onClose` |
 | **BottomSheet** | `isOpen`, `title`, `footer`, `onClose` |
 
@@ -82,6 +82,8 @@ Storybook → Chromatic 배포
 이 디자인 시스템은 npm 패키지가 아니라 **코드를 서비스 저장소에 복사해서** 사용합니다. 컴포넌트 문서는 위 Storybook 링크를 참고하세요.
 
 **요구 사항:** React 18 이상, CSS Modules 지원 (Vite · Next.js 기본 지원)
+
+**필요한 패키지:** `sonner` (Toast를 화면에 띄울 때 사용) — `npm install sonner`
 
 ### 1. 파일 복사
 
@@ -117,6 +119,27 @@ import { Button } from '@/components/Button'
 
 <Button variant="primary" type="submit">저장</Button>
 ```
+
+### 5. Toast 띄우기
+
+앱 최상위(예: `App.tsx`, Next.js는 `app/layout.tsx`)에 `<Toaster />`를 **한 번만** 넣고, 어디서든 `toast`를 호출합니다.
+
+```tsx
+import { Toaster, toast } from '@/components/Toast'
+
+// 최상위 레이아웃
+<Toaster />
+
+// 필요한 곳에서
+toast.success('저장되었습니다.')
+toast.warning('저장 공간이 부족합니다.', { description: '불필요한 파일을 정리해 주세요.' })
+toast.error('저장에 실패했습니다.', { duration: 5000 })
+toast.dismiss()  // 모두 닫기
+```
+
+- 기본값: 화면 하단 가운데, 3초 후 자동으로 사라짐, 최대 3개까지 펼쳐서 쌓임
+- 위치·시간은 `<Toaster position="top-center" duration={5000} />`처럼 바꿀 수 있습니다. ([Sonner 옵션](https://sonner.emilkowal.ski/toaster))
+- 같은 `id`로 다시 호출하면 새로 쌓지 않고 기존 토스트를 교체합니다.
 
 ### Next.js를 쓰는 경우
 
