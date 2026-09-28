@@ -169,6 +169,7 @@ src/
 │   └── build-tokens.js  # JSON → CSS Variables 변환
 ├── styles/
 │   └── tokens.css       # 자동 생성 (직접 수정 X)
+├── docs/                # Storybook 문서 페이지 (Introduction, Foundations) — 서비스에 복사하지 않음
 └── components/
     ├── shared/          # 공통 도구: cx(className 조합), useControllableState, useDialog, CloseIcon
     └── Button/

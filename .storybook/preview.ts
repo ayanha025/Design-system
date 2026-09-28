@@ -3,6 +3,11 @@ import type { Preview } from '@storybook/react'
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ['Introduction', 'Foundations', ['Color', 'Typography', 'Spacing', 'Radius', 'Shadow'], 'Components'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
