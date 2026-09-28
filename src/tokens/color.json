@@ -105,13 +105,13 @@
       "tertiary": "#E5E5E5",
       "disabled": "#D4D4D4",
       "selected": "#FEFEFE",
-      "selected-hovered": "#F3E2E0",
-      "selected-pressed": "#FBCBC7"
+      "selected-hovered": "#FFF7ED",
+      "selected-pressed": "#FFEDD5"
     },
     "primary": {
-      "default": "#DC2626",
-      "hovered": "#B91C1C",
-      "pressed": "#991B1B"
+      "default": "#EA580C",
+      "hovered": "#C2410C",
+      "pressed": "#9A3412"
     },
     "secondary": {
       "default": "#404040",

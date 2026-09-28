@@ -88,11 +88,11 @@
   --color-bg-tertiary: #E5E5E5;
   --color-bg-disabled: #D4D4D4;
   --color-bg-selected: #FEFEFE;
-  --color-bg-selected-hovered: #F3E2E0;
-  --color-bg-selected-pressed: #FBCBC7;
-  --color-primary-default: #DC2626;
-  --color-primary-hovered: #B91C1C;
-  --color-primary-pressed: #991B1B;
+  --color-bg-selected-hovered: #FFF7ED;
+  --color-bg-selected-pressed: #FFEDD5;
+  --color-primary-default: #EA580C;
+  --color-primary-hovered: #C2410C;
+  --color-primary-pressed: #9A3412;
   --color-secondary-default: #404040;
   --color-secondary-hovered: #262626;
   --color-secondary-pressed: #171717;
