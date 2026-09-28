@@ -1,3 +1,5 @@
+'use client'
+
 // src/components/Checkbox/Checkbox.tsx
 import { forwardRef, useState } from 'react'
 import styles from './Checkbox.module.css'

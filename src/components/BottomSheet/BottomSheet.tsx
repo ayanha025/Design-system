@@ -1,7 +1,9 @@
+'use client'
+
 // src/components/BottomSheet/BottomSheet.tsx
 import { useId } from 'react'
 import { createPortal } from 'react-dom'
-import { useDialog } from '../shared/useDialog'
+import { useDialog, useIsMounted } from '../shared/useDialog'
 import styles from './BottomSheet.module.css'
 
 export interface BottomSheetProps {
@@ -16,10 +18,11 @@ export interface BottomSheetProps {
 }
 
 export function BottomSheet({ isOpen, title, onClose, children, footer, className, 'aria-label': ariaLabel }: BottomSheetProps) {
-  const panelRef = useDialog<HTMLDivElement>(isOpen, onClose)
+  const mounted = useIsMounted()
+  const panelRef = useDialog<HTMLDivElement>(isOpen && mounted, onClose)
   const titleId = useId()
 
-  if (!isOpen) return null
+  if (!isOpen || !mounted) return null
 
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>

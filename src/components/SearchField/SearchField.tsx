@@ -1,3 +1,5 @@
+'use client'
+
 // src/components/SearchField/SearchField.tsx
 import { forwardRef, useRef, useState } from 'react'
 import styles from './SearchField.module.css'

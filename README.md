@@ -120,8 +120,11 @@ import { Button } from '@/components/Button'
 
 ### Next.js를 쓰는 경우
 
-- **`'use client'`**: 컴포넌트가 상태·이벤트를 사용하므로 App Router에서는 각 컴포넌트 파일(`*.tsx`, 스토리 제외) 맨 위에 `'use client'`를 추가합니다.
-- **Toast 아이콘**: Toast는 SVG를 `import icon from './icon.svg'`로 불러와 `<img src>`에 넣습니다. Next.js에서는 이 import가 문자열이 아니라 `{ src, width, height }` 객체이므로 `Toast.tsx`의 `assets` 값을 `iconSuccess.src`처럼 바꿔야 합니다. (SVGR을 설정한 프로젝트라면 SVG 로더 설정도 확인하세요.)
+별도 수정 없이 App Router에서 그대로 사용할 수 있습니다. (Next.js 15 · React 18에서 빌드·서버 렌더링 확인)
+
+- **`'use client'`**: 상태·이벤트를 가진 컴포넌트(TextField, Checkbox, SearchField, SelectField, Chip, Modal, BottomSheet)에는 이미 들어 있습니다. Button, Radio, ProgressBar, Toast는 서버 컴포넌트에서도 바로 쓸 수 있습니다.
+- **Modal · BottomSheet**: 서버 렌더링 중에는 그리지 않고, 브라우저에 마운트된 뒤 portal로 그립니다. `isOpen={true}`로 시작해도 됩니다.
+- **Toast 아이콘**: SVG import가 문자열(Vite)이든 `{ src }` 객체(Next.js)든 모두 처리합니다. 단, SVGR처럼 SVG를 React 컴포넌트로 바꾸는 로더를 설정한 프로젝트라면 `Toast/assets`의 SVG는 URL로 불러오도록 예외 처리가 필요합니다.
 
 ### 디자인이 바뀌었을 때
 

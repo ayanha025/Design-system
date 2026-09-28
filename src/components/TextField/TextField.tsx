@@ -1,3 +1,5 @@
+'use client'
+
 // src/components/TextField/TextField.tsx
 import { forwardRef, useId } from 'react'
 import styles from './TextField.module.css'

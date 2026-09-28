@@ -1,3 +1,5 @@
+'use client'
+
 // src/components/Chip/Chip.tsx
 import { forwardRef } from 'react'
 import styles from './Chip.module.css'

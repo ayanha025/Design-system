@@ -1,3 +1,5 @@
+'use client'
+
 // src/components/SelectField/SelectField.tsx
 import { forwardRef, useState, useRef, useEffect, useId } from 'react'
 import styles from './SelectField.module.css'

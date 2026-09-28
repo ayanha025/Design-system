@@ -1,5 +1,5 @@
 // src/components/shared/useDialog.ts
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const FOCUSABLE = [
   'a[href]',
@@ -9,6 +9,16 @@ const FOCUSABLE = [
   'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
 ].join(',')
+
+/**
+ * 브라우저에 마운트된 뒤에만 true.
+ * 서버 렌더링(Next.js 등)에는 document가 없으므로 portal은 마운트 후에 그린다.
+ */
+export function useIsMounted() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  return mounted
+}
 
 /**
  * 모달형 다이얼로그 공통 동작

@@ -15,10 +15,14 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: boolean
 }
 
+// Vite는 SVG import를 URL 문자열로, Next.js는 { src } 객체로 돌려준다
+type ImportedSvg = string | { src: string }
+const toUrl = (svg: ImportedSvg) => (typeof svg === 'string' ? svg : svg.src)
+
 const assets = {
-  success: { icon: iconSuccess, glow: glowSuccess },
-  warning: { icon: iconWarning, glow: glowWarning },
-  error: { icon: iconError, glow: glowError },
+  success: { icon: toUrl(iconSuccess), glow: toUrl(glowSuccess) },
+  warning: { icon: toUrl(iconWarning), glow: toUrl(glowWarning) },
+  error: { icon: toUrl(iconError), glow: toUrl(glowError) },
 }
 
 export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
