@@ -2,7 +2,7 @@
 
 ## 목적
 
-Figma에서 구축한 디자인시스템(TMT Design System)을 코드로 옮겨서:
+Figma에서 구축한 디자인시스템(eat-da Design System)을 코드로 옮겨서:
 1. **A) Storybook 구축** - 디자인 컴포넌트를 실제 작동하는 코드로 구현하고 인터랙티브 카탈로그로 문서화
 2. **B) Figma-Code 토큰 연동** - Figma 토큰과 코드 토큰이 1:1 매칭되는 변환 시스템 구축
 

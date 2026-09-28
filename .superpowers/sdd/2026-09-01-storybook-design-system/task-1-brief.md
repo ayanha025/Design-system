@@ -52,7 +52,7 @@ rm -rf src/stories
 ```tsx
 // src/App.tsx
 function App() {
-  return <div>TMT Design System</div>
+  return <div>eat-da Design System</div>
 }
 export default App
 ```

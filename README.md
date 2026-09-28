@@ -1,6 +1,6 @@
-# TMT Design System
+# eat-da Design System
 
-Figma에서 설계한 **TMT Design System**을 React 컴포넌트로 구현하고, Storybook으로 문서화한 프로젝트입니다.
+Figma에서 설계한 **eat-da Design System**을 React 컴포넌트로 구현하고, Storybook으로 문서화한 프로젝트입니다.
 
 > 디자이너가 디자인시스템의 코드 구현체까지 직접 관리하고 검증할 수 있다는 것을 보여주기 위해 만들었습니다.
 

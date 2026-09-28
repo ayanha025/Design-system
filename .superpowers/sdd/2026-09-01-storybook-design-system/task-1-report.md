@@ -16,7 +16,7 @@
 | `vite.config.ts` | Vite config with @vitejs/plugin-react |
 | `index.html` | Includes Pretendard font via Google Fonts CDN |
 | `src/main.tsx` | React StrictMode entry point |
-| `src/App.tsx` | Minimal: `<div>TMT Design System</div>` |
+| `src/App.tsx` | Minimal: `<div>eat-da Design System</div>` |
 | `src/vite-env.d.ts` | Vite client type reference |
 | `.storybook/main.ts` | Storybook config with @storybook/react-vite framework |
 | `.storybook/preview.ts` | Preview with controls matchers as specified in brief |
