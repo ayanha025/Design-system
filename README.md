@@ -77,6 +77,56 @@ Storybook → Chromatic 배포
 - **Chip**: `onClick`이 있으면 Tab으로 포커스되고 Enter·Space로 동작하며, `selected`가 `aria-pressed`로 전달됩니다.
 - **Checkbox · Radio · Chip · SelectField**: 키보드 포커스 시 포커스 링이 표시됩니다.
 
+## 서비스에 적용하기
+
+이 디자인 시스템은 npm 패키지가 아니라 **코드를 서비스 저장소에 복사해서** 사용합니다. 컴포넌트 문서는 위 Storybook 링크를 참고하세요.
+
+**요구 사항:** React 18 이상, CSS Modules 지원 (Vite · Next.js 기본 지원)
+
+### 1. 파일 복사
+
+| 이 저장소 | 서비스 저장소 (예시) |
+|---|---|
+| `src/components/` 전체 (`shared/` 포함) | `src/components/` |
+| `src/styles/tokens.css` | `src/styles/tokens.css` |
+
+`*.stories.tsx` 파일은 서비스에서 필요 없으면 지워도 됩니다.
+
+### 2. 토큰 CSS 불러오기
+
+앱 진입점(예: `main.tsx`, Next.js는 `app/layout.tsx`)에서 한 번만 import합니다.
+
+```ts
+import './styles/tokens.css'
+```
+
+### 3. Pretendard 폰트 불러오기
+
+`tokens.css`는 폰트 이름(`--font-family: Pretendard`)만 지정하고 폰트 파일은 불러오지 않습니다. 서비스에서 이미 Pretendard를 쓰고 있다면 이 단계는 건너뜁니다.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+```
+
+npm 패키지(`pretendard`)나 `next/font/local`로 불러와도 됩니다.
+
+### 4. 사용
+
+```tsx
+import { Button } from '@/components/Button'
+
+<Button variant="primary" type="submit">저장</Button>
+```
+
+### Next.js를 쓰는 경우
+
+- **`'use client'`**: 컴포넌트가 상태·이벤트를 사용하므로 App Router에서는 각 컴포넌트 파일(`*.tsx`, 스토리 제외) 맨 위에 `'use client'`를 추가합니다.
+- **Toast 아이콘**: Toast는 SVG를 `import icon from './icon.svg'`로 불러와 `<img src>`에 넣습니다. Next.js에서는 이 import가 문자열이 아니라 `{ src, width, height }` 객체이므로 `Toast.tsx`의 `assets` 값을 `iconSuccess.src`처럼 바꿔야 합니다. (SVGR을 설정한 프로젝트라면 SVG 로더 설정도 확인하세요.)
+
+### 디자인이 바뀌었을 때
+
+토큰과 컴포넌트의 원본은 이 저장소입니다. 이곳에서 수정·검증한 뒤, 바뀐 파일을 서비스 저장소에 다시 복사합니다. 커밋 기록에서 어떤 파일이 바뀌었는지 확인할 수 있습니다.
+
 ## 기술 스택
 
 - React 18 · TypeScript · Vite
@@ -94,6 +144,7 @@ src/
 ├── styles/
 │   └── tokens.css       # 자동 생성 (직접 수정 X)
 └── components/
+    ├── shared/          # 여러 컴포넌트가 쓰는 공통 훅 (useDialog)
     └── Button/
         ├── Button.tsx
         ├── Button.module.css

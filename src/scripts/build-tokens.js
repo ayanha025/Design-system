@@ -18,9 +18,7 @@ const shadow = JSON.parse(readFileSync(resolve(tokensDir, 'shadow.json'), 'utf-8
 
 const lines = [];
 
-// Font import
-lines.push("@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');");
-lines.push('');
+// 폰트 파일은 불러오지 않음: 사용하는 쪽(서비스, Storybook)에서 Pretendard를 로드
 lines.push(':root {');
 
 // === Color Primitive ===
