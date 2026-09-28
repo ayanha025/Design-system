@@ -10,7 +10,6 @@ Figma에서 구축한 디자인시스템(eat-da Design System)을 코드로 옮�
 
 ## Figma 원본
 
-- 파일: TMT Design System (Copy)
 - Foundation 토큰: Color, Typography, Layout Grid, Spacing, Radius, Elevation/Shadow
 - 컴포넌트: Button, Radio, Check, TextField, SelectField, SearchField, Option, Chip, ProgressBar, Toast, Modal, BottomSheet (12개)
 
