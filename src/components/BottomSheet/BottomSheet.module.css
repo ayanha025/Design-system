@@ -78,3 +78,7 @@
 .footer > * {
   flex: 1;
 }
+
+.sheet:focus {
+  outline: none;
+}

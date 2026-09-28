@@ -56,3 +56,9 @@
   color: var(--color-label-primary);
   letter-spacing: var(--letter-spacing);
 }
+
+/* 키보드 포커스 표시: 숨긴 input 다음에 오는 시각 요소에 링 표시 */
+.hiddenInput:focus-visible + .radio {
+  outline: 2px solid var(--color-border-interactive-primary);
+  outline-offset: 2px;
+}

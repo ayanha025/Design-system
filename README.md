@@ -70,6 +70,13 @@ Storybook → Chromatic 배포
   - SelectField → 선택된 값(`string`)
 - SearchField를 제어 방식으로 쓸 때는 `onClear`에서 값을 직접 비워야 합니다.
 
+### 접근성·키보드 동작
+
+- **Modal · BottomSheet**: `document.body`에 portal로 렌더링됩니다. 열리면 첫 번째 버튼으로 포커스가 이동하고, Tab 포커스가 패널 안에 갇히며, ESC로 닫힙니다. 닫히면 연 버튼으로 포커스가 돌아가고, 열려 있는 동안 배경 스크롤이 잠깁니다. `title`이 없으면 `aria-label`을 지정하세요.
+- **SelectField**: ↑↓로 이동, Home/End, Enter·Space로 선택, ESC·Tab으로 닫기. Modal 안에서 ESC를 누르면 드롭다운만 닫힙니다.
+- **Chip**: `onClick`이 있으면 Tab으로 포커스되고 Enter·Space로 동작하며, `selected`가 `aria-pressed`로 전달됩니다.
+- **Checkbox · Radio · Chip · SelectField**: 키보드 포커스 시 포커스 링이 표시됩니다.
+
 ## 기술 스택
 
 - React 18 · TypeScript · Vite

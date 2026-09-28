@@ -40,6 +40,7 @@
   cursor: not-allowed;
 }
 
+.trigger:focus-visible,
 .focused {
   border-color: var(--color-border-interactive-primary);
 }
@@ -93,7 +94,8 @@
   cursor: pointer;
 }
 
-.option:hover {
+.option:hover,
+.optionActive {
   background-color: var(--color-bg-secondary);
 }
 

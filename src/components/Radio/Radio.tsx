@@ -18,9 +18,6 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
 
   return (
     <label className={wrapperClassName}>
-      <div className={`${styles.radio} ${checked ? styles.checked : ''}`}>
-        {checked && <div className={styles.dot} />}
-      </div>
       <input
         ref={ref}
         type="radio"
@@ -29,6 +26,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         className={styles.hiddenInput}
         {...rest}
       />
+      <div aria-hidden="true" className={`${styles.radio} ${checked ? styles.checked : ''}`}>
+        {checked && <div className={styles.dot} />}
+      </div>
       {label && <span className={styles.label}>{label}</span>}
     </label>
   )

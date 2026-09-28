@@ -27,7 +27,16 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
   return (
     <label className={wrapperClassName}>
-      <div className={`${styles.checkbox} ${isChecked ? styles.checked : ''}`}>
+      <input
+        ref={ref}
+        type="checkbox"
+        checked={isChecked}
+        disabled={disabled}
+        onChange={handleChange}
+        className={styles.hiddenInput}
+        {...rest}
+      />
+      <div aria-hidden="true" className={`${styles.checkbox} ${isChecked ? styles.checked : ''}`}>
         {isChecked && (
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path
@@ -40,15 +49,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
           </svg>
         )}
       </div>
-      <input
-        ref={ref}
-        type="checkbox"
-        checked={isChecked}
-        disabled={disabled}
-        onChange={handleChange}
-        className={styles.hiddenInput}
-        {...rest}
-      />
       {label && <span className={styles.label}>{label}</span>}
     </label>
   )
