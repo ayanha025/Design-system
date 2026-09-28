@@ -39,21 +39,21 @@ export const RadioGroup: Story = {
           name="group"
           value="option1"
           checked={selected === 'option1'}
-          onChange={setSelected}
+          onChange={(e) => setSelected(e.target.value)}
         />
         <Radio
           label="옵션 2"
           name="group"
           value="option2"
           checked={selected === 'option2'}
-          onChange={setSelected}
+          onChange={(e) => setSelected(e.target.value)}
         />
         <Radio
           label="옵션 3"
           name="group"
           value="option3"
           checked={selected === 'option3'}
-          onChange={setSelected}
+          onChange={(e) => setSelected(e.target.value)}
         />
         <Radio label="비활성화" disabled />
         <Radio label="비활성화 (선택됨)" checked disabled />

@@ -1,32 +1,34 @@
 // src/components/Checkbox/Checkbox.tsx
+import { forwardRef, useState } from 'react'
 import styles from './Checkbox.module.css'
 
-export interface CheckboxProps {
-  checked?: boolean
-  disabled?: boolean
+export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string
-  onChange?: (checked: boolean) => void
 }
 
-export function Checkbox({
-  checked = false,
-  disabled = false,
-  label,
-  onChange,
-}: CheckboxProps) {
-  const handleChange = () => {
-    if (!disabled) {
-      onChange?.(!checked)
-    }
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+  { checked, defaultChecked = false, disabled = false, label, onChange, className, ...rest },
+  ref,
+) {
+  // checked가 없으면 비제어 모드로 동작
+  const [internalChecked, setInternalChecked] = useState(defaultChecked)
+  const isChecked = checked ?? internalChecked
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (checked === undefined) setInternalChecked(e.target.checked)
+    onChange?.(e)
   }
 
+  const wrapperClassName = [
+    styles.wrapper,
+    disabled ? styles.disabled : '',
+    className,
+  ].filter(Boolean).join(' ')
+
   return (
-    <label className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
-      <div
-        className={`${styles.checkbox} ${checked ? styles.checked : ''}`}
-        onClick={handleChange}
-      >
-        {checked && (
+    <label className={wrapperClassName}>
+      <div className={`${styles.checkbox} ${isChecked ? styles.checked : ''}`}>
+        {isChecked && (
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path
               d="M2.5 6L5 8.5L9.5 3.5"
@@ -39,13 +41,15 @@ export function Checkbox({
         )}
       </div>
       <input
+        ref={ref}
         type="checkbox"
-        checked={checked}
+        checked={isChecked}
         disabled={disabled}
         onChange={handleChange}
         className={styles.hiddenInput}
+        {...rest}
       />
       {label && <span className={styles.label}>{label}</span>}
     </label>
   )
-}
+})

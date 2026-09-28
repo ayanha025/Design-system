@@ -39,7 +39,7 @@
   cursor: not-allowed;
 }
 
-.focused {
+.input:focus {
   border-color: var(--color-border-interactive-primary);
 }
 

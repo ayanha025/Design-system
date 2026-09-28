@@ -58,6 +58,18 @@ Storybook → Chromatic 배포
 | **Modal** | `isOpen`, `title`, `footer`, `onClose` |
 | **BottomSheet** | `isOpen`, `title`, `footer`, `onClose` |
 
+### 공통 규칙
+
+- 모든 컴포넌트는 `className`을 받아 루트 요소에 덧붙입니다. (Modal·BottomSheet는 패널에 적용)
+- Modal·BottomSheet를 제외한 컴포넌트는 `ref`를 전달할 수 있습니다.
+- Button, TextField, SearchField, Checkbox, Radio, Chip, ProgressBar, Toast는 해당 HTML 요소의 기본 속성(`type`, `name`, `aria-*`, `onBlur` 등)을 그대로 받습니다.
+- Button의 기본 `type`은 `button`입니다. 폼 제출에는 `type="submit"`을 지정하세요.
+- 입력 컴포넌트는 제어(`value`/`checked`)와 비제어(`defaultValue`/`defaultChecked`) 방식을 모두 지원합니다. Radio는 제어 방식만 지원합니다.
+- `onChange` 형태:
+  - TextField, SearchField, Checkbox, Radio → 네이티브 이벤트 (`e.target.value`, `e.target.checked`). react-hook-form의 `register()`와 바로 연결됩니다.
+  - SelectField → 선택된 값(`string`)
+- SearchField를 제어 방식으로 쓸 때는 `onClear`에서 값을 직접 비워야 합니다.
+
 ## 기술 스택
 
 - React 18 · TypeScript · Vite

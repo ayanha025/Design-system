@@ -1,47 +1,35 @@
 // src/components/Radio/Radio.tsx
+import { forwardRef } from 'react'
 import styles from './Radio.module.css'
 
-export interface RadioProps {
-  checked?: boolean
-  disabled?: boolean
+export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string
-  name?: string
-  value?: string
-  onChange?: (value: string) => void
 }
 
-export function Radio({
-  checked = false,
-  disabled = false,
-  label,
-  name,
-  value = '',
-  onChange,
-}: RadioProps) {
-  const handleChange = () => {
-    if (!disabled) {
-      onChange?.(value)
-    }
-  }
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
+  { checked = false, disabled = false, label, className, ...rest },
+  ref,
+) {
+  const wrapperClassName = [
+    styles.wrapper,
+    disabled ? styles.disabled : '',
+    className,
+  ].filter(Boolean).join(' ')
 
   return (
-    <label className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
-      <div
-        className={`${styles.radio} ${checked ? styles.checked : ''}`}
-        onClick={handleChange}
-      >
+    <label className={wrapperClassName}>
+      <div className={`${styles.radio} ${checked ? styles.checked : ''}`}>
         {checked && <div className={styles.dot} />}
       </div>
       <input
+        ref={ref}
         type="radio"
-        name={name}
-        value={value}
         checked={checked}
         disabled={disabled}
-        onChange={handleChange}
         className={styles.hiddenInput}
+        {...rest}
       />
       {label && <span className={styles.label}>{label}</span>}
     </label>
   )
-}
+})

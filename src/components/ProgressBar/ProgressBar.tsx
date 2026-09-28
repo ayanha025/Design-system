@@ -1,17 +1,27 @@
 // src/components/ProgressBar/ProgressBar.tsx
+import { forwardRef } from 'react'
 import styles from './ProgressBar.module.css'
 
-export interface ProgressBarProps {
+export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number
   showLabel?: boolean
 }
 
-export function ProgressBar({ value, showLabel = false }: ProgressBarProps) {
+export const ProgressBar = forwardRef<HTMLDivElement, ProgressBarProps>(function ProgressBar(
+  { value, showLabel = false, className, ...rest },
+  ref,
+) {
   const clampedValue = Math.min(100, Math.max(0, value))
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.track}>
+    <div ref={ref} className={[styles.wrapper, className].filter(Boolean).join(' ')} {...rest}>
+      <div
+        className={styles.track}
+        role="progressbar"
+        aria-valuenow={clampedValue}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
         <div
           className={styles.fill}
           style={{ width: `${clampedValue}%` }}
@@ -22,4 +32,4 @@ export function ProgressBar({ value, showLabel = false }: ProgressBarProps) {
       )}
     </div>
   )
-}
+})

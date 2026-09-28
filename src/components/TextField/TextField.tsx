@@ -1,58 +1,42 @@
 // src/components/TextField/TextField.tsx
-import { useState } from 'react'
+import { forwardRef, useId } from 'react'
 import styles from './TextField.module.css'
 
-export interface TextFieldProps {
+export interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  placeholder?: string
   error?: boolean
   helperText?: string
-  disabled?: boolean
-  value?: string
-  onChange?: (value: string) => void
 }
 
-export function TextField({
-  label,
-  placeholder,
-  error = false,
-  helperText,
-  disabled = false,
-  value,
-  onChange,
-}: TextFieldProps) {
-  const [internalValue, setInternalValue] = useState(value ?? '')
-  const [focused, setFocused] = useState(false)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    setInternalValue(newValue)
-    onChange?.(newValue)
-  }
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+  { label, error = false, helperText, id, className, ...rest },
+  ref,
+) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const helperId = `${inputId}-helper`
 
   const inputClassName = [
     styles.input,
     error ? styles.error : '',
-    focused ? styles.focused : '',
-  ].join(' ')
+  ].filter(Boolean).join(' ')
 
   return (
-    <div className={styles.wrapper}>
-      {label && <label className={styles.label}>{label}</label>}
+    <div className={[styles.wrapper, className].filter(Boolean).join(' ')}>
+      {label && <label className={styles.label} htmlFor={inputId}>{label}</label>}
       <input
+        ref={ref}
+        id={inputId}
         className={inputClassName}
-        placeholder={placeholder}
-        disabled={disabled}
-        value={internalValue}
-        onChange={handleChange}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        aria-invalid={error || undefined}
+        aria-describedby={helperText ? helperId : undefined}
+        {...rest}
       />
       {helperText && (
-        <span className={error ? styles.helperError : styles.helper}>
+        <span id={helperId} className={error ? styles.helperError : styles.helper}>
           {helperText}
         </span>
       )}
     </div>
   )
-}
+})

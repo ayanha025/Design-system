@@ -24,7 +24,7 @@ export const Playground: Story = {
   },
   render: function Render(args) {
     const [checked, setChecked] = useState(args.checked)
-    return <Checkbox {...args} checked={checked} onChange={setChecked} />
+    return <Checkbox {...args} checked={checked} onChange={(e) => setChecked(e.target.checked)} />
   },
 }
 
@@ -35,8 +35,8 @@ export const AllStates: Story = {
     const [checked2, setChecked2] = useState(true)
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <Checkbox label="미선택" checked={checked1} onChange={setChecked1} />
-        <Checkbox label="선택됨" checked={checked2} onChange={setChecked2} />
+        <Checkbox label="미선택" checked={checked1} onChange={(e) => setChecked1(e.target.checked)} />
+        <Checkbox label="선택됨" checked={checked2} onChange={(e) => setChecked2(e.target.checked)} />
         <Checkbox label="비활성화 (미선택)" disabled />
         <Checkbox label="비활성화 (선택됨)" checked disabled />
       </div>

@@ -1,34 +1,22 @@
 // src/components/Button/Button.tsx
+import { forwardRef } from 'react'
 import styles from './Button.module.css'
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'tertiary'
   size?: 'small' | 'medium' | 'large'
-  disabled?: boolean
-  children: React.ReactNode
-  onClick?: () => void
 }
 
-export function Button({
-  variant = 'primary',
-  size = 'medium',
-  disabled = false,
-  children,
-  onClick,
-}: ButtonProps) {
-  const className = [
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant = 'primary', size = 'medium', type = 'button', className, ...rest },
+  ref,
+) {
+  const classNames = [
     styles.button,
     styles[variant],
     styles[size],
-  ].join(' ')
+    className,
+  ].filter(Boolean).join(' ')
 
-  return (
-    <button
-      className={className}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  )
-}
+  return <button ref={ref} type={type} className={classNames} {...rest} />
+})
