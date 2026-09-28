@@ -34,11 +34,11 @@ Storybook → Chromatic 배포
 
 | 파일 | 내용 | CSS 변수 예시 |
 |---|---|---|
-| `color.json` | **Primitive**: neutral, red, orange, yellow, green, blue (50–900)<br>**Semantic**: label, bg, border, state, primary/secondary/tertiary | `--color-orange-600`<br>`--color-primary-default` |
+| `color.json` | **Primitive**: neutral, red, orange, yellow, green, blue (50–900)<br>**Semantic**: label, bg, border, state, primary/secondary/tertiary, transparent(20·84) | `--color-orange-600`<br>`--color-primary-default` |
 | `typography.json` | Pretendard / 굵기 400·500·700 / 크기 12–28px / 텍스트 스타일(heading, body) | `--font-size-16`<br>`--font-weight-bold` |
 | `spacing.json` | 0–64px 스케일 | `--spacing-16` |
 | `radius.json` | xs(4) · sm(8) · md(12) · lg(16) · xl(20) · full | `--radius-md` |
-| `shadow.json` | sm · md · lg | `--shadow-md` |
+| `shadow.json` | sm · md · lg · toast | `--shadow-md` |
 
 컬러는 **Primitive → Semantic** 2단계 구조입니다. 컴포넌트는 Semantic 토큰(`primary`, `label`, `bg` 등)만 사용하므로, 브랜드 컬러를 바꿀 때 Semantic 값만 수정하면 됩니다.
 
