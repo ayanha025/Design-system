@@ -1,54 +1,65 @@
 /* src/components/Toast/Toast.module.css */
 .toast {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--spacing-8);
+  width: 320px;
+  box-sizing: border-box;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-sm);
-  min-width: 280px;
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-transparent-84);
+  box-shadow: var(--shadow-toast);
+  overflow: hidden;
 }
 
-.success {
-  background-color: var(--color-state-success);
+.oneLine {
+  height: 56px;
+}
+
+.glow {
+  position: absolute;
+  left: -74px;
+  pointer-events: none;
+}
+
+.oneLine .glow {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.twoLines .glow {
+  top: -65px;
+}
+
+.icon {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.textBlock {
+  position: relative;
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 0;
   color: var(--color-label-inverse);
-}
-
-.error {
-  background-color: var(--color-state-error);
-  color: var(--color-label-inverse);
-}
-
-.warning {
-  background-color: var(--color-state-warning);
-  color: var(--color-label-primary);
-}
-
-.info {
-  background-color: var(--color-state-info);
-  color: var(--color-label-inverse);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+  word-break: break-word;
 }
 
 .message {
-  font-family: var(--font-family);
-  font-size: var(--font-size-14);
+  margin: 0;
+  font-size: var(--font-size-16);
   font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-24);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-20);
-  letter-spacing: var(--letter-spacing);
-}
-
-.closeButton {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: inherit;
-  opacity: 0.8;
-}
-
-.closeButton:hover {
-  opacity: 1;
 }

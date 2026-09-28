@@ -6,8 +6,10 @@ const meta: Meta<typeof Toast> = {
   title: 'Components/Toast',
   component: Toast,
   argTypes: {
-    type: { control: 'select', options: ['success', 'error', 'warning', 'info'] },
+    type: { control: 'select', options: ['success', 'warning', 'error'] },
     message: { control: 'text' },
+    description: { control: 'text' },
+    icon: { control: 'boolean' },
   },
 }
 
@@ -21,11 +23,13 @@ export const Playground: Story = {
 export const AllTypes: Story = {
   name: 'Overview',
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-      <Toast type="success" message="저장되었습니다." onClose={() => {}} />
-      <Toast type="error" message="오류가 발생했습니다." onClose={() => {}} />
-      <Toast type="warning" message="주의가 필요합니다." onClose={() => {}} />
-      <Toast type="info" message="새로운 알림이 있습니다." onClose={() => {}} />
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 320px)', gap: '24px' }}>
+      <Toast type="success" message="한줄 토스트" />
+      <Toast type="warning" message="한줄 토스트" />
+      <Toast type="error" message="한줄 토스트" />
+      <Toast type="success" message="서브 텍스트 토스트" description="안녕 너무 졸리다 안녕 너무 졸리다..." />
+      <Toast type="warning" message="서브 텍스트 토스트" description="안녕 너무 졸리다 안녕 너무 졸리다..." />
+      <Toast type="error" message="서브 텍스트 토스트" description="안녕 너무 졸리다 안녕 너무 졸리다..." />
     </div>
   ),
 }

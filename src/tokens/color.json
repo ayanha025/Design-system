@@ -131,6 +131,10 @@
       "interactive-primary": "#404040",
       "interactive-primary-hovered": "#A3A3A3",
       "interactive-primary-pressed": "#737373"
+    },
+    "transparent": {
+      "20": "rgba(0, 0, 0, 0.2)",
+      "84": "rgba(0, 0, 0, 0.84)"
     }
   }
 }

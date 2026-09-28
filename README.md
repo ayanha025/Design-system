@@ -54,7 +54,7 @@ Storybook → Chromatic 배포
 | **Radio** | `checked`, `label`, `name`, `value`, `disabled` |
 | **Chip** | `variant`: filled · outlined / `selected`, 삭제(`onClose`), `disabled` |
 | **ProgressBar** | `value`(0–100), `showLabel` |
-| **Toast** | `type`: success · error · warning · info / `message` |
+| **Toast** | `type`: success · warning · error / `message`, `description`(서브 텍스트), `icon` |
 | **Modal** | `isOpen`, `title`, `footer`, `onClose` |
 | **BottomSheet** | `isOpen`, `title`, `footer`, `onClose` |
 

@@ -1,23 +1,41 @@
 // src/components/Toast/Toast.tsx
 import styles from './Toast.module.css'
+import iconSuccess from './assets/icon-success.svg'
+import iconWarning from './assets/icon-warning.svg'
+import iconError from './assets/icon-error.svg'
+import glowSuccess from './assets/glow-success.svg'
+import glowWarning from './assets/glow-warning.svg'
+import glowError from './assets/glow-error.svg'
 
 export interface ToastProps {
-  type?: 'success' | 'error' | 'warning' | 'info'
+  type?: 'success' | 'warning' | 'error'
   message: string
-  onClose?: () => void
+  description?: string
+  icon?: boolean
 }
 
-export function Toast({ type = 'info', message, onClose }: ToastProps) {
+const assets = {
+  success: { icon: iconSuccess, glow: glowSuccess },
+  warning: { icon: iconWarning, glow: glowWarning },
+  error: { icon: iconError, glow: glowError },
+}
+
+export function Toast({ type = 'success', message, description, icon = true }: ToastProps) {
+  const className = [
+    styles.toast,
+    description ? styles.twoLines : styles.oneLine,
+  ].join(' ')
+
   return (
-    <div className={`${styles.toast} ${styles[type]}`}>
-      <span className={styles.message}>{message}</span>
-      {onClose && (
-        <button className={styles.closeButton} onClick={onClose}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M4 4L10 10M10 4L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
+    <div className={className} role="status">
+      <img className={styles.glow} src={assets[type].glow} width={212} height={212} alt="" />
+      {icon && (
+        <img className={styles.icon} src={assets[type].icon} width={24} height={24} alt="" />
       )}
+      <div className={styles.textBlock}>
+        <p className={styles.message}>{message}</p>
+        {description && <p className={styles.description}>{description}</p>}
+      </div>
     </div>
   )
 }
